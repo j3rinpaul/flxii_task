@@ -1,3 +1,4 @@
+import 'package:flexii/core/utils.dart';
 import 'package:flexii/dashboard/view/view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Design.primaryColor),
         useMaterial3: true,
       ),
       home: DashBoard()

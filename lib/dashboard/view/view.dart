@@ -1,5 +1,8 @@
+import 'package:flexii/core/responsive.dart';
+import 'package:flexii/core/utils.dart';
 import 'package:flexii/dashboard/model/model.dart';
-import 'package:flexii/dashboard/view_model/dash_b/view_model.dart';
+import 'package:flexii/dashboard/view/sidebar/sidebar_desktop.dart';
+import 'package:flexii/dashboard/view_model/view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -13,35 +16,42 @@ class DashBoard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final center = ref.watch(centerProvider);
+    final isDesktop = Responsive.isDesktop(context);
     return Scaffold(
+      backgroundColor: Design.primaryColor,
+      drawer: isDesktop
+          ? null
+          : Drawer(
+            backgroundColor: Design.primaryColor,
+              child: DesktopSidebar()),
+      appBar: AppBar(
+        backgroundColor: Design.primaryColor,
+        title: Text("Test"),
+        leading: isDesktop
+            ? null
+            : Builder(
+                builder: (context) => IconButton(
+                  icon: Icon(Icons.menu),
+                  onPressed: () {
+                    Scaffold.of(context).openDrawer();
+                  },
+                ),
+              ),
+      ),
       body: SafeArea(
-          child: Column(
-        children: [
-          Text(center.name),
-          Text(center.owner),
-          Text(center.location),
-          Text(center.noMembers.toString()),
-          Text(center.noTeams.toString()),
-          Text(center.pinCode.toString()),
-          Container(
-            height: 50, // Set a fixed height for the horizontal ListView
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: center.amenities.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Chip(
-                    label: Text(center.amenities[index]),
-                    avatar: Icon(Icons.sunny),
-                  ),
-                );
-              },
+        child: Row(
+          children: [
+            if (isDesktop)
+              Expanded(flex: 2, child: DesktopSidebar()),
+            Expanded(
+              flex: 7,
+              child: Container(
+                color: Design.primaryColor,
+              ),
             ),
-          ),
-        ],
-      )),
+          ],
+        ),
+      ),
     );
   }
 }

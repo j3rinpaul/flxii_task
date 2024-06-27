@@ -8,6 +8,7 @@ class CenterDetails {
     int noTeams;
     int noMembers;
     List<String> amenities;
+    String imgLink;
 
     CenterDetails({
         required this.name,
@@ -17,6 +18,7 @@ class CenterDetails {
         required this.noTeams,
         required this.noMembers,
         required this.amenities,
+        required this.imgLink
     });
 
     CenterDetails copyWith({
@@ -27,6 +29,7 @@ class CenterDetails {
         int? noTeams,
         int? noMembers,
         List<String>? amenities,
+        String? imgLink
     }) => 
         CenterDetails(
             name: name ?? this.name,
@@ -36,6 +39,7 @@ class CenterDetails {
             noTeams: noTeams ?? this.noTeams,
             noMembers: noMembers ?? this.noMembers,
             amenities: amenities ?? this.amenities,
+            imgLink: imgLink?? this.imgLink
         );
 
     factory CenterDetails.fromRawJson(String str) => CenterDetails.fromJson(json.decode(str));
@@ -50,6 +54,7 @@ class CenterDetails {
         noTeams: json["noTeams"],
         noMembers: json["noMembers"],
         amenities: List<String>.from(json["amenities"].map((x) => x)),
+        imgLink: json["imgLink"]
     );
 
    
