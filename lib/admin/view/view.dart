@@ -1,15 +1,9 @@
+import 'package:flexii/admin/view/content/dashboard.dart';
+import 'package:flexii/admin/view/sidebar/sidebar_desktop.dart';
 import 'package:flexii/core/responsive.dart';
 import 'package:flexii/core/utils.dart';
-import 'package:flexii/dashboard/model/model.dart';
-import 'package:flexii/dashboard/view/sidebar/sidebar_desktop.dart';
-import 'package:flexii/dashboard/view_model/view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-final centerProvider =
-    StateNotifierProvider<CenterDetailNotifier, CenterDetails>((ref) {
-  return CenterDetailNotifier();
-});
 
 class DashBoard extends ConsumerWidget {
   const DashBoard({super.key});
@@ -22,13 +16,15 @@ class DashBoard extends ConsumerWidget {
       drawer: isDesktop
           ? null
           : Drawer(
-            backgroundColor: Design.primaryColor,
-              child: DesktopSidebar()),
+              backgroundColor: Design.primaryColor, child: DesktopSidebar()),
       appBar: AppBar(
         backgroundColor: Design.primaryColor,
-        title: Text("Test"),
+        title: Text(
+          "Test",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 46),
+        ),
         leading: isDesktop
-            ? null
+            ? Icon(Icons.circle)
             : Builder(
                 builder: (context) => IconButton(
                   icon: Icon(Icons.menu),
@@ -41,14 +37,8 @@ class DashBoard extends ConsumerWidget {
       body: SafeArea(
         child: Row(
           children: [
-            if (isDesktop)
-              Expanded(flex: 2, child: DesktopSidebar()),
-            Expanded(
-              flex: 7,
-              child: Container(
-                color: Design.primaryColor,
-              ),
-            ),
+            if (isDesktop) Expanded(flex: 3, child: DesktopSidebar()),
+            Expanded(flex: 7, child: DashBoardDetial()),
           ],
         ),
       ),
